@@ -8,8 +8,7 @@
     <div class="home-header">
       <div class="title-inner">
         <div class="title">
-          <h1>刘志鹏的个人网站</h1>
-          <h2>前端开发工程师</h2>
+          <h1>PPeng 的主页</h1>
         </div>
         <div class="subtitle">
           <ul>
@@ -40,11 +39,11 @@ export default {
       buttons: [
         {
           text: "简历",
-          type: "simple-bigger",
+          flavor: "simple-bigger",
           signal: "open-resume"
         },{
           text: "博客",
-          type: "simple-bigger",
+          flavor: "simple-bigger",
           signal: "open-blog"
         }
       ]

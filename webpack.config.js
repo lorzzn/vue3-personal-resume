@@ -1,7 +1,8 @@
 const path = require('path');
 const HTMLPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const { DefinePlugin } = require('webpack')
+const { DefinePlugin } = require('webpack');
 
 const cssLoader = (esModule = false, importLoaders = 0) => {
   return {
@@ -14,18 +15,18 @@ const cssLoader = (esModule = false, importLoaders = 0) => {
 }
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash:8].js',
+    filename: '[name].[fullhash:8].js',
     clean: true
   },
   stats: {
     children: true
   },
   devServer: {
-    open: true
+    open: false
   },
   module: {
     rules: [
@@ -92,7 +93,8 @@ module.exports = {
               [
                 "@babel/preset-env",
                 {
-                  useBuiltIns: 'usage'
+                  useBuiltIns: 'usage',
+                  corejs: 3
                 }
               ]
             ]
@@ -105,13 +107,21 @@ module.exports = {
     new VueLoaderPlugin(),
     new HTMLPlugin({
       template: 'index.html',
-      title: '刘志鹏的主页',
+      title: '我的主页',
       favicon: path.resolve(__dirname, 'src/assets/favicon.ico')
     }),
     new DefinePlugin({
       'process.env': {
         BASE_URL: process.env.BASE_URL
       }
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { 
+          from: path.resolve(__dirname, 'public/markdown'), 
+          to: "markdown"
+        }
+      ],
     })
   ]
 }

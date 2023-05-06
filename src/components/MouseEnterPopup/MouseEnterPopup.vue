@@ -53,7 +53,8 @@ export default {
     methods: {
         updatePopupState(e) {
             if(this.$refs.popupContainer.contains(e.target)) return;
-            if(e.target.id && e.target.id == this.bindElementId) {
+            let bindElem = document.getElementById(this.bindElementId);
+            if(bindElem && bindElem.contains(e.target)) {
                 let left = e.clientX, 
                     top = e.clientY,
                     marginPointerRight = 10,
@@ -89,13 +90,13 @@ export default {
     position: fixed;
     z-index: 9999;
     background: #fff;
-    border-radius: .8rem;
+    border-radius: 8px;
     pointer-events: none
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     .popup-inner
         width: 100%
         height: 100%
-        padding: .8rem
+        padding: 8px
         pointer-events: auto
 
 .fade-enter-active, .fade-leave-active 

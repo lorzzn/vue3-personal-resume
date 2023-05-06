@@ -2,7 +2,7 @@
     <div class="bettbutton-container">
         <ul>
             <li v-for="(item, index) in buttons" :key="index">
-                <button :type="item.type" @click="sendClickEvent(item)">{{ item.text }}</button>
+                <button :flavor="item.flavor" @click="sendClickEvent(item)">{{ item.text }}</button>
             </li>
         </ul>
     </div>
@@ -37,7 +37,10 @@ export default {
             button 
                 background: #fff
                 transition: ease .2s;
-                &:hover, &:hover
+                color: var(--default-font-color)
+                user-select: none
+                cursor: pointer
+                &:active
                     background: darken(#fff, 10%)
 
 </style>

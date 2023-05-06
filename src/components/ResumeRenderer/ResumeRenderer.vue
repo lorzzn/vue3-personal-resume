@@ -1,7 +1,7 @@
 <template>
     <div class="rr-container">
         <div class="rr-body">
-            <div v-for="(item, index) in mdSections" :key="index">
+            <div v-for="(item, index) in contentList" :key="index">
                 <div v-if="item.type == 'img'" class="img">
                     <a :href="item.data.src" :title="item.data.alt" target="_blank">
                         <img v-if="item.type == 'img'" 
@@ -18,28 +18,50 @@
 
 <script>
 
+import { mapGetters } from 'vuex';
+
 export default {
     name: "ResumeRenderer",
-    props: {
-        mdSections: {
-            type: Object,
-            default: {}
-        }
+    computed: {
+        ...mapGetters({
+            contentList: 'readResumeContent'
+        })
     },
     methods:{
         linkify(inputText) {
             if(!inputText) return;
-            let replacedText, replacePattern1, replacePattern2, replacePattern3;
+            inputText = this.escapeHTML(inputText);
+            let result, reg1, reg2, reg3;
             // 匹配 http://, https://, ftp://
-            replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-            replacedText = inputText.replace(replacePattern1, '<i class="ri-links-line"></i><a href="$1" target="_blank">$1</a>');
+            reg1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+            result = inputText.replace(
+                reg1, 
+                '<i class="ri-links-line"></i><a href="$1" target="_blank">$1</a>'
+            );
             // 匹配 "www."
-            replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-            replacedText = replacedText.replace(replacePattern2, '<i class="ri-links-line"></i>$1<a href="http://$2" target="_blank">$2</a>');
+            reg2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+            result = result.replace(
+                reg2, 
+                '<i class="ri-links-line"></i>$1<a href="http://$2" target="_blank">$2</a>'
+            );
             // 匹配 email
-            replacePattern3 = /(([a-zA-Z0-9\-_\.])+@[a-zA-Z_]+?(\.[a-zA-Z]{2,6})+)/gim;
-            replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
-            return replacedText;
+            reg3 = /(([a-zA-Z0-9\-_\.])+@[a-zA-Z_]+?(\.[a-zA-Z]{2,6})+)/gim;
+            result = result.replace(
+                reg3, 
+                '<a href="mailto:$1">$1</a>'
+            );
+            return result;
+        },
+        escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, tag =>
+                        ({
+                            '&': '&amp;',
+                            '<': '&lt;',
+                            '>': '&gt;',
+                            "'": '&#39;',
+                            '"': '&quot;'
+                        }[tag] || tag)
+                    );
         }
     }
 }
@@ -50,47 +72,46 @@ export default {
 .rr-container
     width: 100%
     height: 100%
-    line-height: 2
+    line-height: 1.8
     color: var(--default-font-color)
     .rr-body::after
         content: ''
         display: block
         clear: both
     .rr-body div
-        font-size: 1.5rem
         [class^=title]
             clear: both
-            padding: 1rem 1.5rem
+            padding: .3rem 1.5rem
+            margin: 1rem 0
         .title-1 
-            font-size: 2rem
-            margin: 1.6rem 0 1.2rem 0
-            border: 1px solid transparent
-            border-radius: 5rem
-            background-clip: padding-box, border-box;
-            background-origin: padding-box, border-box;
-            background-image: linear-gradient(to right, #fff, #fff), linear-gradient(to right, gray, rgba(0,0,0,0.1), rgba(0,0,0,0));
+            font-size: 2.2rem
+            border-bottom: 1px solid var(--default-font-color)
+            &::before
+                font-family: 'remixicon'!important
+                content: '\ECFB\A0'
         .title-2 
             font-size: 1.8rem
-            display: flex
-            align-items: center
             &::before   
-                content: ''
-                width: .5rem
-                height: 1.8rem
-                background: darken(#eee, 50%)
-                margin-right: 1rem
-                display: inline-block
-        .list
+                font-family: 'remixicon'!important
+                content: '\F05A\A0'
+        .list, .text
+            font-size: 1.6rem
             padding: 0 2.5rem
-            &::before
-                content: "○ "
+        .list::before
+            font-family: 'remixicon'!important
+            content: "\EB7D\A0"
+            display: inline-block
+            transform: scale(.6)
         .img  
             float: left
             padding: 1rem 2.5rem
-        img
-            width: 10rem
-            height: 10rem
-            object-fit: cover
-            border-radius: .8rem
+            a
+                img
+                    width: 10rem
+                    height: 10rem
+                    object-fit: cover
+                    border-radius: .8rem
+                &:hover
+                        filter: none !important
 
 </style>

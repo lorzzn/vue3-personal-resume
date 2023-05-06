@@ -29,10 +29,10 @@ export default {
         }
     },
     created (){
-        this.__init();
+        this.init();
     },
     methods: {
-        __init(){
+        init(){
             this.$props.options.palette.sort(() => { return 0.5-Math.random()});
         }       
     }
@@ -61,11 +61,11 @@ export default {
         li:nth-child(2n)
             animation: lbLeft 1.5s;
 
-@media screen and (min-aspect-ratio: 1/1) // 如果宽高比(w/h)大于1:1的话
+@media only screen and (min-aspect-ratio: 1/1) // 如果宽高比(w/h)大于1:1的话
     .lb-container ul 
         width: 150vw // 大于100*根号2即可
 
-@media screen and (max-aspect-ratio: 1/1) // 如果宽高比(w/h)小于1:1的话
+@media screen and (max-aspect-ratio: 1/1) // 如果宽高比(w/h)小于1:1 / 不支持媒体查询的客户端
     .lb-container ul 
         width: 150vh // 大于100*根号2即可
 
