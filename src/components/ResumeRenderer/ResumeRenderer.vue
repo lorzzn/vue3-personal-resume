@@ -25,33 +25,35 @@ export default {
     computed: {
         ...mapGetters({
             contentList: 'readResumeContent'
-        })
+        }),
+        linkify() {
+            return (inputText) => {
+                if(!inputText) return;
+                inputText = this.escapeHTML(inputText);
+                let result, reg1, reg2, reg3;
+                // 匹配 http://, https://, ftp://
+                reg1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+                result = inputText.replace(
+                    reg1, 
+                    '<i class="ri-links-line"></i><a href="$1" target="_blank">$1</a>'
+                );
+                // 匹配 "www."
+                reg2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+                result = result.replace(
+                    reg2, 
+                    '<i class="ri-links-line"></i>$1<a href="http://$2" target="_blank">$2</a>'
+                );
+                // 匹配 email
+                reg3 = /(([a-zA-Z0-9\-_\.])+@[a-zA-Z_]+?(\.[a-zA-Z]{2,6})+)/gim;
+                result = result.replace(
+                    reg3, 
+                    '<a href="mailto:$1">$1</a>'
+                );
+                return result;
+            }
+        }
     },
     methods:{
-        linkify(inputText) {
-            if(!inputText) return;
-            inputText = this.escapeHTML(inputText);
-            let result, reg1, reg2, reg3;
-            // 匹配 http://, https://, ftp://
-            reg1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-            result = inputText.replace(
-                reg1, 
-                '<i class="ri-links-line"></i><a href="$1" target="_blank">$1</a>'
-            );
-            // 匹配 "www."
-            reg2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-            result = result.replace(
-                reg2, 
-                '<i class="ri-links-line"></i>$1<a href="http://$2" target="_blank">$2</a>'
-            );
-            // 匹配 email
-            reg3 = /(([a-zA-Z0-9\-_\.])+@[a-zA-Z_]+?(\.[a-zA-Z]{2,6})+)/gim;
-            result = result.replace(
-                reg3, 
-                '<a href="mailto:$1">$1</a>'
-            );
-            return result;
-        },
         escapeHTML(str) {
             return str.replace(/[&<>'"]/g, tag =>
                         ({

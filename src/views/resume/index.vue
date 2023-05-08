@@ -6,7 +6,14 @@
         <MouseEnterPopup bindElementId="nav-button-share">
             <div class="qr-container" ref="QRCodeBody"></div>
         </MouseEnterPopup>
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+                <keep-alive :include="['resumeView', 'resumeEdit']">
+                    <component :is="Component" />
+                </keep-alive>
+            </transition>
+        </router-view>
+        
     </div>
 </template>
 
@@ -25,7 +32,6 @@ export default {
     },
     data() {
         return {
-            topNavBtns: [],
             resumeViewBtns: [
                 {
                     index: 0,
@@ -63,7 +69,7 @@ export default {
                     title: '添加一项',
                     remixicon: 'ri-add-line',
                     clickFn: () => {
-                        this.$store.commit("newResumeItem");
+                        this.$store.dispatch("newResumeItem");
                         setTimeout(() => {
                             window.scroll({ top: document.body.scrollHeight , left: 0, behavior: 'smooth' });
                         }, 0);
@@ -75,7 +81,7 @@ export default {
                     remixicon: 'ri-save-line',
                     clickFn: () => {
                         this.isEdit = false;
-                        this.$router.push("/resume/view")
+                        this.$router.push("/resume")
                     }
                 },
                 {
@@ -86,26 +92,26 @@ export default {
                         color: 'red'
                     },
                     clickFn: () => {
-                        this.$store.commit("storeResumeContent", []);
+                        this.$store.dispatch("storeResumeContent", []);
                     }
                 },
             ]
         }
     },
-    watch: {
-        "$route": {
-            handler(route) {
-                if(route.path == "/resume/view") {
-                    this.topNavBtns = this.resumeViewBtns
-                }
-                else if(route.path == "/resume/edit") {
-                    this.topNavBtns = this.resumeEditBtns
-                }
+    computed: {
+        topNavBtns() {
+            let route = this.$route;
+            if(route.path == "/resume") {
+                return this.resumeViewBtns;
             }
+            else if(route.path == "/resume/edit") {
+                return this.resumeEditBtns;
+            }
+            return [];
         }
     },
     created() {
-        this.init()
+        this.init();
     },
     mounted() {
         this.createQRCode();
@@ -113,14 +119,12 @@ export default {
     methods: {
         init() {
             this.$http({
-                url: this.$config.resume.url(),
+                url: this.$route.query.mdUrl || this.$config.resume.url(),
                 method: 'get'
             }).then(resp => {
                 return this.handleMdData(resp.data);
             }).then(data => {
-                this.$store.commit("storeResumeContent", data);
-                this.$router.replace("/resume/view");
-                this.topNavBtns = this.resumeViewBtns;
+                this.$store.dispatch("storeResumeContent", data);
             }).catch(err=>{
                 alert("请求数据失败！")
             })
@@ -209,4 +213,18 @@ export default {
     .topnav 
         display: none
     
+.fade-enter-from, .fade-leave-to
+    transform: translateY(3px)
+    opacity: 0
+
+.fade-enter-to, .fade-leave-from
+    transform: translateY(0)
+    opacity: 1
+
+.fade-enter-active
+    transition: all .1s ease;
+
+.fade-leave-active
+    transition: all .1s ease;
+
 </style>

@@ -37,7 +37,7 @@ export default {
     },
     computed: {
         contentList() {
-            return [...this.$store.getters.readResumeContent];
+            return this.$store.getters.readResumeContent || [];
         },
         RIContainer() {
             return this.$refs.resumeItemsContainer;
@@ -45,9 +45,11 @@ export default {
     },
     watch: {
         'contentList': {
-            handler() {
+            handler(val) {
+                this.$store.dispatch("storeResumeContent", val);
                 this.$nextTick(this.initItems)
-            }
+            },
+            deep: true
         }
     },
     mounted() {
@@ -120,9 +122,7 @@ export default {
         },
         handleDragEnter(e) {
             if(e.target == this.dragStartItem) return;
-            if(e.target.id == "resume-item-body") { 
-                this.dragEnterItem = e.target;
-            }
+            this.dragEnterItem = e.target.closest('#resume-item-body');
             if(this.dragEnterItem && this.dragEnterItem.contains(e.target)) {
                 document.querySelectorAll('.dragenter').forEach(elem => {
                     elem.classList.remove('dragenter')
@@ -141,7 +141,6 @@ export default {
                 } else {
                     this.contentList.splice(eid, 0, sobj);
                 }
-                this.$store.commit("storeResumeContent", this.contentList);
                 document.querySelectorAll('.dragenter').forEach(elem => {
                     elem.classList.remove('dragenter')
                 })  
@@ -158,21 +157,18 @@ export default {
         },
         deleteItem(index){
             this.contentList.splice(index, 1);
-            this.$store.commit("storeResumeContent", this.contentList);
         },
         moveUpItem(index) {
             if(index == 0) return;
             [this.contentList[index-1], this.contentList[index]] = [
                 this.contentList[index], this.contentList[index-1]
             ]
-            this.$store.commit("storeResumeContent", this.contentList);
         },
         moveDownItem(index) {
             if(index == (this.contentList.length-1)) return;
             [this.contentList[index], this.contentList[index+1]] = [
                 this.contentList[index+1], this.contentList[index]
             ]
-            this.$store.commit("storeResumeContent", this.contentList);
         }
     }
 }
@@ -193,6 +189,6 @@ export default {
 
 .dragenter 
     &:deep(.resume-item-inner)
-        box-shadow: 0 -4px 4px 0 rgba(44, 62, 80, .2)
+        box-shadow: 0 -10px 10px 0 rgba(72, 168, 228, .3)
 
 </style>

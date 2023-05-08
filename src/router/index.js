@@ -23,7 +23,7 @@ const routes = [
         },
         children: [
             {
-                path: "/resume/view",
+                path: "",
                 name: "resumeView",
                 component: resumeView,
                 meta: {
@@ -31,7 +31,7 @@ const routes = [
                 },
             },
             {
-                path: "/resume/edit",
+                path: "edit",
                 name: "resumeEdit",
                 component: resumeEdit,
                 meta: {

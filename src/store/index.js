@@ -23,5 +23,13 @@ export default new createStore({
                 }
             })
         }
+    },
+    actions: {
+        storeResumeContent(ctx, content) {
+            ctx.commit("storeResumeContent", content);
+        },
+        newResumeItem(ctx) {
+            ctx.commit("newResumeItem");
+        }
     }
 })
