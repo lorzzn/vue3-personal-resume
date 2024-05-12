@@ -133,7 +133,8 @@ export default {
             let item = {}, 
                 titleReg = /^(\#+) +(.*)/,
                 listReg = /^\- +(.*)/,
-                imageReg = /\!\[(.*)\]\((.*)\)/;
+                imageReg = /\!\[(.*)\]\((.*)\)/,
+                olistReg = /^\d+\. +(.*)/;
             if(titleReg.test(line)) {
                 line.replace(titleReg, (m, p1, p2) => {
                     item.type = `title-${p1.length}`;
@@ -149,6 +150,13 @@ export default {
                             content: p1
                         };
                     }
+                });
+            } else if (olistReg.test(line)) {
+                line.replace(olistReg, (m) => {
+                    item.type = 'olist';
+                    item.data = {
+                        content: m
+                    };
                 });
             } else {
                 if (imageReg.test(line)) {

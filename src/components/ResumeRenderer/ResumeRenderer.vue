@@ -102,9 +102,11 @@ export default {
                 font-family: 'remixicon'!important
                 content: '\EDA9\A0'
         
-        .list, .text
+        .list, .olist, .text
             font-size: 1.6rem
             padding: 0 2.5rem
+        .olist
+            padding-left: 4.5rem
         .list::before
             font-family: 'remixicon'!important
             content: "\EB7D\A0"
