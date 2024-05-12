@@ -98,6 +98,7 @@ export default {
                 content: '\F05A\A0'
         .title-3 
             font-size: 1.6rem
+            margin: 0
             &::before   
                 font-family: 'remixicon'!important
                 content: '\EDA9\A0'

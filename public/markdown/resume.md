@@ -1,6 +1,6 @@
 # 基本信息
 
-出于保护个人隐私目的，此处信息不便全部展示，获取完整简历请联系邮箱：255499213@qq.com
+- 邮箱：255499213@qq.com
 
 # 教育经历
 
@@ -36,7 +36,8 @@
 2. 负责智淘分销PC端网站应用；PC端使用 React 框架进行开发，组件库使用 Fusion Design 和一些自研组件，状态管理库为 Redux，网络请求是基于阿里 isv 接口封装的一个请求库；
 3. 负责移动端1688服务市场应用的开发和维护。移动端使用的是阿里的 Raxjs 框架，ui库为公司自研组件库；
 4. 负责促销专家、智淘复制和一些其他电商平台服务市场应用的PC端网站应用和一些移动端开发，这些应用都是使用的Vue框架，使用的库有antd，axios等。
-5. 和阿里分销技术人员对接，解决开发过程中遇到的问题。
+5. 和后端对接，解决开发过程中遇到的问题。
+6. 和阿里分销技术人员对接，解决开发过程中遇到的问题。
 
 - 成就: 负责并完了一些比较大的模块，比如淘宝复制的同步商品，智淘分销代销订单的分账功能，货源中心，采集铺货等。
 
@@ -52,31 +53,40 @@
 
 ### Timegit
 
-- 项目描述：Timegit 是一款使用nextjs框架开发的时间管理工具，可以记录自己的时间都花在哪了，用户可以通过Github登录同步自己的数据。开源代码仓库：https://github.com/lorzzn/timegit；在线演示：https://timegit.vercel.app/
+- 项目描述：Timegit 是一款使用nextjs框架开发的时间管理工具，可以记录自己的时间都花在哪了，用户可以通过Github登录同步自己的数据。
+- 开源代码仓库：https://github.com/lorzzn/timegit
+- 在线演示：https://timegit.vercel.app/
 
 ### Todogit
 
-- 项目描述：Todogit 是一款使用nextjs框架开发的 Todolist，用户可以通过Github登录同步自己的数据。开源代码仓库：https://github.com/lorzzn/todogit；在线演示：https://todogit.vercel.app/
+- 项目描述：Todogit 是一款使用nextjs框架开发的 Todolist，用户可以通过Github登录同步自己的数据。
+- 开源代码仓库：https://github.com/lorzzn/todogit
+- 在线演示：https://todogit.vercel.app/
 
 ### ClipboardNext
 
-- 项目描述：ClipboardNext 是一款为用户提供跨设备剪切板同步的应用，用户通过关联不同设备，可以在不同的设备之间提交的剪切板内容。开源代码仓库：https://github.com/lorzzn/clipboard-next；在线演示：https://clipboardnext.vercel.app/
+- 项目描述：ClipboardNext 是一款为用户提供跨设备剪切板同步的应用，用户通过关联不同设备，可以在不同的设备之间提交的剪切板内容。
+- 开源代码仓库：https://github.com/lorzzn/clipboard-next
+- 在线演示：https://clipboardnext.vercel.app/
 
 ### 简记
 
-- 项目描述：简记是一款支持 markdown 语法的记笔记工具，支持markdown在线编辑，支持分类和标签，后端使用go语言开发。开源代码仓库：https://github.com/lorzzn/jianji-web
+- 项目描述：简记是一款支持 markdown 语法的记笔记工具，支持markdown在线编辑，支持分类和标签，后端使用go语言开发。
+- 开源代码仓库：https://github.com/lorzzn/jianji-web
 
 ### 个人博客
 
-- 项目描述：我的个人博客使用Hexo框架搭建，使用Github Actions进行自动部署，使用Github Pages提供在线运行服务。在线地址：https://ppengryuu.cn/
+- 项目描述：我的个人博客使用Hexo框架搭建，使用Github Actions进行自动部署，使用Github Pages提供在线运行服务。
+- 在线地址：https://ppengryuu.cn/
 
 ### NyNFT
 
-- 项目描述：本作品实现了一个基于以太坊测试网络Sepolia的NFT（非同质化代币）网站，用户可以在该网站上生成属于自己的NFT。开源代码仓库：https://github.com/lorzzn/MyNFT，在线演示：https://mynft-frontend.vercel.app/
+- 项目描述：本作品实现了一个基于以太坊测试网络Sepolia的NFT（非同质化代币）网站，用户可以在该网站上生成属于自己的NFT。
+- 开源代码仓库：https://github.com/lorzzn/MyNFT
+- 在线演示：https://mynft-frontend.vercel.app/
 
 # 个人成就
 
-- 在校时期参与华为鲲鹏产业学院，获得华为HCIA认证
+- 参与华为鲲鹏产业学院，获得华为HCIA认证
 - 2020年参与大学生网络工作室Java培训，获得优秀作品，优秀社会实践
 - 拇指HPU（HPU百宝袋）参加2020年微信小程序应用开发赛，获华中赛区二等奖。
-- 英语通过四六级
