@@ -96,6 +96,12 @@ export default {
             &::before   
                 font-family: 'remixicon'!important
                 content: '\F05A\A0'
+        .title-3 
+            font-size: 1.6rem
+            &::before   
+                font-family: 'remixicon'!important
+                content: '\EDA9\A0'
+        
         .list, .text
             font-size: 1.6rem
             padding: 0 2.5rem
